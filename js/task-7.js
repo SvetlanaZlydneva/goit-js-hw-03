@@ -14,27 +14,23 @@ const account = {
   },
 
   deposit(amount) {
-    if (amount > 0) {
-      this.transactions.push(
-        this.createTransaction(amount, Transaction.DEPOSIT),
-      );
-      this.balance += amount;
-    } else {
-      console.log(`депозит для суммы (${amount}) не возможен`);
-    }
+    amount > 0
+      ? (this.transactions.push(
+          this.createTransaction(amount, Transaction.DEPOSIT),
+        ),
+        (this.balance += amount))
+      : console.log(`депозит для суммы (${amount}) не возможен`);
   },
 
   withdraw(amount) {
-    if (amount < this.getBalance() && amount > 0) {
-      this.transactions.push(
-        this.createTransaction(amount, Transaction.WITHDRAW),
-      );
-      this.balance -= amount;
-    } else {
-      console.log(
-        `снятие такой суммы (${amount}) не возможно, недостаточно средств`,
-      );
-    }
+    amount < this.balance && amount > 0
+      ? (this.transactions.push(
+          this.createTransaction(amount, Transaction.WITHDRAW),
+        ),
+        (this.balance -= amount))
+      : console.log(
+          `снятие такой суммы (${amount}) не возможно, недостаточно средств`,
+        );
   },
 
   getBalance() {
